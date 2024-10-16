@@ -514,8 +514,7 @@ s! {
        pub ifr6_addr: ::in6_addr,
        pub ifr6_prefixlen: u32,
        pub ifr6_ifindex: ::c_int,
-   }
-
+    }
 }
 
 s_no_extra_traits! {
@@ -4145,6 +4144,15 @@ extern "C" {
     ) -> ::size_t;
     pub fn fflush_unlocked(stream: *mut ::FILE) -> ::c_int;
     pub fn fgets_unlocked(buf: *mut ::c_char, size: ::c_int, stream: *mut ::FILE) -> *mut ::c_char;
+
+    pub fn memfd_create(name: *const ::c_char, flags: ::c_uint) -> ::c_int;
+    pub fn renameat2(
+        olddirfd: ::c_int,
+        oldpath: *const ::c_char,
+        newdirfd: ::c_int,
+        newpath: *const ::c_char,
+        flags: ::c_uint,
+    ) -> ::c_int;
 
     pub fn klogctl(syslog_type: ::c_int, bufp: *mut ::c_char, len: ::c_int) -> ::c_int;
 }
