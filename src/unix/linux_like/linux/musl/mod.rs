@@ -370,8 +370,8 @@ s! {
         pub tcpi_snd_wnd: u32,
     }
 
-    // MIPS implementation is special (see mips arch folders)
-    #[cfg(not(target_arch = "mips"))]
+    // MIPS/s390x implementation is special (see arch folders)
+    #[cfg(not(any(target_arch = "mips", target_arch = "s390x")))]
     pub struct statfs {
         pub f_type: c_ulong,
         pub f_bsize: c_ulong,
