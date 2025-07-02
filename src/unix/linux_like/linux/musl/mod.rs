@@ -387,7 +387,7 @@ s! {
         pub f_spare: [c_ulong; 4],
     }
 
-    // MIPS implementation is special (see mips arch folders)
+    // MIPS/s390x implementation is special (see arch folders)
     #[cfg(not(target_arch = "mips"))]
     pub struct statfs64 {
         pub f_type: c_ulong,
