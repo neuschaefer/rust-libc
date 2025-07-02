@@ -98,6 +98,32 @@ s! {
         pub f_flags: c_uint,
         pub f_spare: [c_uint; 4],
     }
+
+    pub struct __psw_t {
+        pub mask: u64,
+        pub addr: u64,
+    }
+
+    pub struct fpregset_t {
+        pub fpc: u32,
+        __pad: u32,
+        pub fprs: [fpreg_t; 16],
+    }
+
+    pub struct mcontext_t {
+        pub psw: __psw_t,
+        pub gregs: [u64; 16],
+        pub aregs: [u32; 16],
+        pub fpregs: fpregset_t,
+    }
+
+    pub struct ucontext_t {
+        pub uc_flags: c_ulong,
+        pub uc_link: *mut ucontext_t,
+        pub uc_stack: crate::stack_t,
+        pub uc_mcontext: mcontext_t,
+        pub uc_sigmask: crate::sigset_t,
+    }
 }
 
 s_no_extra_traits! {
