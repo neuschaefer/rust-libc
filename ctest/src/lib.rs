@@ -1040,11 +1040,11 @@ fn default_cfg(target: &str) -> Vec<(String, Option<String>)> {
     } else {
         panic!("unknown arch/pointer width: {target}")
     };
-    let (os, family, env) = if target.contains("unknown-linux-gnu") {
+    let (os, family, env) = if target.contains("linux-gnu") {
         ("linux", "unix", "gnu")
-    } else if target.contains("unknown-linux-musl") {
+    } else if target.contains("linux-musl") {
         ("linux", "unix", "musl")
-    } else if target.contains("unknown-linux-uclibc") {
+    } else if target.contains("linux-uclibc") {
         ("linux", "unix", "uclibc")
     } else if target.contains("apple-darwin") {
         ("macos", "unix", "")
