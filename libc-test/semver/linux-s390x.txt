@@ -98,6 +98,5 @@ makecontext
 mcontext_t
 setcontext
 swapcontext
-sysctl
 termios2
 ucontext_t
