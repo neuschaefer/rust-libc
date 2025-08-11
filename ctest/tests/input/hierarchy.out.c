@@ -25,7 +25,7 @@ uint64_t ctest_align_of__in6_addr(void) { return _Alignof(in6_addr); }
 
 // Return `1` if the type is signed, otherwise return `0`.
 // Casting -1 to the aliased type if signed evaluates to `-1 < 0`, if unsigned to `MAX_VALUE < 0`
-uint32_t ctest_signededness_of__in6_addr(void) {
+uint32_t ctest_signedness_of__in6_addr(void) {
     in6_addr all_ones = (in6_addr) -1;
     return all_ones < 0;
 }

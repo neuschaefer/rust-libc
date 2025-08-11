@@ -123,20 +123,20 @@ mod generated_tests {
     }
 {%- endfor +%}
 
-{%- for alias in ctx.signededness_tests +%}
+{%- for alias in ctx.signedness_tests +%}
 
-    /// Make sure that the signededness of a type alias in Rust and C is the same.
+    /// Make sure that the signedness of a type alias in Rust and C is the same.
     ///
     /// This is done by casting 0 to that type and flipping all of its bits. For unsigned types,
     /// this would result in a value larger than zero. For signed types, this results in a value
     /// smaller than 0.
     pub fn {{ alias.test_name }}() {
          extern "C" {
-            fn ctest_signededness_of__{{ alias.id }}() -> u32;
+            fn ctest_signedness_of__{{ alias.id }}() -> u32;
         }
         let all_ones = !(0 as {{ alias.id }});
         let all_zeros = 0 as {{ alias.id }};
-        let c_is_signed = unsafe { ctest_signededness_of__{{ alias.id }}() };
+        let c_is_signed = unsafe { ctest_signedness_of__{{ alias.id }}() };
 
         check_same((all_ones < all_zeros) as u32, c_is_signed, "{{ alias.id }} signed");
     }

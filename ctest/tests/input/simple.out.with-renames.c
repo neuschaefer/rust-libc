@@ -45,7 +45,7 @@ uint64_t ctest_align_of__Word(void) { return _Alignof(union Word); }
 
 // Return `1` if the type is signed, otherwise return `0`.
 // Casting -1 to the aliased type if signed evaluates to `-1 < 0`, if unsigned to `MAX_VALUE < 0`
-uint32_t ctest_signededness_of__Byte(void) {
+uint32_t ctest_signedness_of__Byte(void) {
     Byte all_ones = (Byte) -1;
     return all_ones < 0;
 }

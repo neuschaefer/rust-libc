@@ -142,18 +142,18 @@ mod generated_tests {
         check_same(rust_align, c_align, "Word align");
     }
 
-    /// Make sure that the signededness of a type alias in Rust and C is the same.
+    /// Make sure that the signedness of a type alias in Rust and C is the same.
     ///
     /// This is done by casting 0 to that type and flipping all of its bits. For unsigned types,
     /// this would result in a value larger than zero. For signed types, this results in a value
     /// smaller than 0.
-    pub fn ctest_signededness_Byte() {
+    pub fn ctest_signedness_Byte() {
          extern "C" {
-            fn ctest_signededness_of__Byte() -> u32;
+            fn ctest_signedness_of__Byte() -> u32;
         }
         let all_ones = !(0 as Byte);
         let all_zeros = 0 as Byte;
-        let c_is_signed = unsafe { ctest_signededness_of__Byte() };
+        let c_is_signed = unsafe { ctest_signedness_of__Byte() };
 
         check_same((all_ones < all_zeros) as u32, c_is_signed, "Byte signed");
     }
@@ -788,7 +788,7 @@ fn run_all() {
     ctest_size_align_Byte();
     ctest_size_align_Person();
     ctest_size_align_Word();
-    ctest_signededness_Byte();
+    ctest_signedness_Byte();
     ctest_field_size_offset_Person_name();
     ctest_field_size_offset_Person_age();
     ctest_field_size_offset_Person_job();

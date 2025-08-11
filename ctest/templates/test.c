@@ -46,11 +46,11 @@ uint64_t ctest_size_of__{{ item.id }}(void) { return sizeof({{ item.c_ty }}); }
 uint64_t ctest_align_of__{{ item.id }}(void) { return _Alignof({{ item.c_ty }}); }
 {%- endfor +%}
 
-{%- for alias in ctx.signededness_tests +%}
+{%- for alias in ctx.signedness_tests +%}
 
 // Return `1` if the type is signed, otherwise return `0`.
 // Casting -1 to the aliased type if signed evaluates to `-1 < 0`, if unsigned to `MAX_VALUE < 0`
-uint32_t ctest_signededness_of__{{ alias.id }}(void) {
+uint32_t ctest_signedness_of__{{ alias.id }}(void) {
     {{ alias.c_ty }} all_ones = ({{ alias.c_ty }}) -1;
     return all_ones < 0;
 }

@@ -729,7 +729,7 @@ fn test_cygwin(target: &str) {
         }
     });
 
-    cfg.skip_signededness(move |c| match c {
+    cfg.skip_signedness(move |c| match c {
         n if n.starts_with("pthread") => true,
 
         // For consistency with other platforms. Actually a function ptr.
@@ -906,7 +906,7 @@ fn test_windows(target: &str) {
     // FIXME(windows): All functions point to the wrong addresses?
     cfg.skip_fn_ptrcheck(|_| true);
 
-    cfg.skip_signededness(move |c| {
+    cfg.skip_signedness(move |c| {
         match c {
             // windows-isms
             n if n.starts_with("P") => true,
@@ -1400,7 +1400,7 @@ fn test_netbsd(target: &str) {
         }
     });
 
-    cfg.skip_signededness(move |c| {
+    cfg.skip_signedness(move |c| {
         match c {
             "LARGE_INTEGER" | "float" | "double" => true,
             n if n.starts_with("pthread") => true,
@@ -1615,7 +1615,7 @@ fn test_dragonflybsd(target: &str) {
         }
     });
 
-    cfg.skip_signededness(move |c| {
+    cfg.skip_signedness(move |c| {
         match c {
             "LARGE_INTEGER" | "float" | "double" => true,
             // uuid_t is a struct, not an integer.

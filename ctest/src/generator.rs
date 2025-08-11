@@ -45,7 +45,7 @@ pub struct TestGenerator {
     pub(crate) array_arg: Option<ArrayArg>,
     pub(crate) skip_private: bool,
     pub(crate) skip_roundtrip: Option<SkipTest>,
-    pub(crate) skip_signededness: Option<SkipTest>,
+    pub(crate) skip_signedness: Option<SkipTest>,
     pub(crate) skip_fn_ptrcheck: Option<SkipTest>,
 }
 
@@ -858,12 +858,12 @@ impl TestGenerator {
         self
     }
 
-    /// Configures whether a type's signededness is tested or not.
+    /// Configures whether a type's signedness is tested or not.
     ///
     /// The closure is given the name of a Rust type, and returns whether the
     /// type should be tested as having the right sign (positive or negative).
     ///
-    /// By default all signededness checks are performed.
+    /// By default all signedness checks are performed.
     ///
     /// # Examples
     ///
@@ -871,12 +871,12 @@ impl TestGenerator {
     /// use ctest::TestGenerator;
     ///
     /// let mut cfg = TestGenerator::new();
-    /// cfg.skip_signededness(|s| {
+    /// cfg.skip_signedness(|s| {
     ///     s.starts_with("foo_")
     /// });
     /// ```
-    pub fn skip_signededness(&mut self, f: impl Fn(&str) -> bool + 'static) -> &mut Self {
-        self.skip_signededness = Some(Box::new(f));
+    pub fn skip_signedness(&mut self, f: impl Fn(&str) -> bool + 'static) -> &mut Self {
+        self.skip_signedness = Some(Box::new(f));
         self
     }
 

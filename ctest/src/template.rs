@@ -56,7 +56,7 @@ pub(crate) struct TestTemplate {
     pub field_size_offset_tests: Vec<TestFieldSizeOffset>,
     pub roundtrip_tests: Vec<TestRoundtrip>,
     pub foreign_fn_tests: Vec<TestForeignFn>,
-    pub signededness_tests: Vec<TestSignededness>,
+    pub signedness_tests: Vec<TestSignedness>,
     pub size_align_tests: Vec<TestSizeAlign>,
     pub const_cstr_tests: Vec<TestCStr>,
     pub const_tests: Vec<TestConst>,
@@ -74,7 +74,7 @@ impl TestTemplate {
         let mut template = Self::default();
         template.populate_const_and_cstr_tests(&helper)?;
         template.populate_size_align_tests(&helper)?;
-        template.populate_signededness_tests(&helper)?;
+        template.populate_signedness_tests(&helper)?;
         template.populate_field_size_offset_tests(&helper)?;
         template.populate_field_ptr_tests(&helper)?;
         template.populate_roundtrip_tests(&helper)?;
@@ -161,29 +161,29 @@ impl TestTemplate {
         Ok(())
     }
 
-    /// Populates signededness tests for aliases.
+    /// Populates signedness tests for aliases.
     ///
     /// It also keeps track of the names of each test.
-    fn populate_signededness_tests(
+    fn populate_signedness_tests(
         &mut self,
         helper: &TranslateHelper,
     ) -> Result<(), TranslationError> {
         for alias in helper.filtered_ffi_items.aliases() {
-            let should_skip_signededness_test = helper
+            let should_skip_signedness_test = helper
                 .generator
-                .skip_signededness
+                .skip_signedness
                 .as_ref()
                 .is_some_and(|skip| skip(alias.ident()));
 
-            if !helper.translator.is_signed(&alias.ty) || should_skip_signededness_test {
+            if !helper.translator.is_signed(&alias.ty) || should_skip_signedness_test {
                 continue;
             }
-            let item = TestSignededness {
-                test_name: signededness_test_ident(alias.ident()),
+            let item = TestSignedness {
+                test_name: signedness_test_ident(alias.ident()),
                 id: alias.ident().into(),
                 c_ty: helper.c_type(alias)?.into(),
             };
-            self.signededness_tests.push(item.clone());
+            self.signedness_tests.push(item.clone());
             self.test_idents.push(item.test_name);
         }
 
@@ -453,7 +453,7 @@ impl TestTemplate {
  */
 
 #[derive(Clone, Debug)]
-pub(crate) struct TestSignededness {
+pub(crate) struct TestSignedness {
     pub test_name: BoxStr,
     pub id: BoxStr,
     pub c_ty: BoxStr,
@@ -531,8 +531,8 @@ pub(crate) struct TestForeignStatic {
     pub rust_ty: BoxStr,
 }
 
-fn signededness_test_ident(ident: &str) -> BoxStr {
-    format!("ctest_signededness_{ident}").into()
+fn signedness_test_ident(ident: &str) -> BoxStr {
+    format!("ctest_signedness_{ident}").into()
 }
 
 fn size_align_test_ident(ident: &str) -> BoxStr {
